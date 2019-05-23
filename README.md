@@ -26,7 +26,60 @@ application up and running.
 
   > rails g devise:install
 
+  * Install the views with devise
 
+  > rails g devise:views
+
+  * Add field name to the table users
+
+  > rails g migration AddFieldsToUsers name:string
+
+  * Check the migration
+
+  > db/migrate/ add_fields_to_users
+
+  ```Ruby
+    add_column :users, :name, :string
+  ```
+  > rails db:migrate
+
+## Scafolding the shot
+
+  > rails g scaffold Shot title:string description:text user_id:integer
+
+  > rails db:migrate
+
+  * Modify the views
+
+    * The root path
+
+      > config/root
+
+      ```Ruby
+        root 'shoots#index'
+      ```
+
+    * Devise views
+
+      * password/edit
+      * password/new
+      * registrations/edit
+      * registrations/new
+      * sessions/new
+
+## Associate the shot to the user
+
+  > app/model/user
+
+  ```Ruby
+    has_may :shots, dependent: :destroy
+  ```
+
+  > app/model/shot
+
+  ```Ruby
+    belong_to :user
+  ```
 Things you may want to cover:
 
 * Ruby version
